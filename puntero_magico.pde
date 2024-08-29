@@ -1,5 +1,4 @@
-  
-  
+
   class PunteroMagicoDecorator{
     
     PImage img;
@@ -33,7 +32,8 @@
         
         //decorator puntero magico
         if(b<params[2] && r<params[0] && g<params[1] && brightness(color(r,g,b))<200){
-          b *= amp * 300;
+          //Aca esta la vibracion de color
+          b *= amp * 150;
           
           float distance= dist(x,y,punteros[0].loc.x*punteros[0].mass,punteros[0].loc.y*punteros[0].mass);
           for(int i=1; i<n;i++){

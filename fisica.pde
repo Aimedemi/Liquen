@@ -22,7 +22,7 @@ class Fisica {
     vel.add(acc);
     amp = (amp>0?amp * 20:1);
     println("loc1:"+loc);
-    loc.add(new PVector(vel.x*amp*contrafuerzaX, vel.y*amp*contrafuerzaY));
+    loc.add(new PVector(sin(vel.x*amp*contrafuerzaX), sin(vel.y*amp*contrafuerzaY)));
     println("loc2:"+loc);
     acc.mult(0);
   }

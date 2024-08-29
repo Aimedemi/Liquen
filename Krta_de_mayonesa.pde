@@ -24,21 +24,20 @@ int ERROR_MESSAGE=1;
 void setup() {
   size(574, 574);
   // videoExport = new VideoExport(this, "myVideo.mp4");
- // videoExport.setFrameRate(30);  
+  // videoExport.setFrameRate(30);
   //videoExport.startMovie();
   //Sound s = new Sound(this);
   //s.inputDevice(17);
-  //AudioIn in = new AudioIn(this, 0);
-  //rms = new Amplitude(this);
-  //rms.input(in);
-  //beat = new BeatDetector(this);
-  //beat.input(in);
-  //beat.sensitivity(2);
+
+
 
 
   //Seleccion de imagen
-  selectInput("Elegi imagen:", "fileSelected");
-  selectInput("Elegi audio:", "audioSelected");
+  selectImage();
+
+  selectAudio();
+
+
   sliders = new ControlP5(this);
 
   // add a horizontal sliders, the value of this slider will be linked
@@ -62,37 +61,39 @@ void setup() {
 
 void draw() {
   //Espera a que se ejecute fileSelected()
-      try {
-  if (isReady && audioReady) {
-    int[] params= {sliderRed, sliderGreen, sliderBlue};
+  try {
+    if (isReady && audioReady) {
+      int[] params= {sliderRed, sliderGreen, sliderBlue};
 
       dibujo.draw(params, rms.analyze(), beat);
-
-  }
-  else if (frameCount > 6000){
-    throw new Exception();
-  }
-      }
-    catch (Exception e) {
-      e.printStackTrace();
-      exit();
+    } else if (frameCount > 6000) {
+      throw new Exception();
     }
-   // videoExport.saveFrame();
-}
-
-void fileSelected(File selection) {
-  try {
-    //Crea objeto dibujo
-    //video = new Movie(this,selection.getAbsolutePath());
-    //video.loop();
-    dibujo = new Dibujo(selection.getAbsolutePath(), canvas);
-    isReady = true;
   }
   catch (Exception e) {
     e.printStackTrace();
     exit();
   }
+  // videoExport.saveFrame();
 }
+
+void selectAudio() {
+  //selectInput("Elegi audio:", "audioSelected");
+  initAudioIn();
+}
+
+void initAudioIn() {
+  Sound s = new Sound(this);
+  s.inputDevice(1);
+  AudioIn in = new AudioIn(this, 0);
+  rms = new Amplitude(this);
+  rms.input(in);
+  beat = new BeatDetector(this);
+  beat.input(in);
+  beat.sensitivity(2);
+  audioReady = true;
+}
+
 
 void audioSelected(File selection) {
   try {
@@ -111,20 +112,47 @@ void audioSelected(File selection) {
   }
 }
 
+void selectImage() {
+  selectInput("Elegi imagen:", "fileSelected");
+}
+
+void fileSelected(File selection) {
+  try {
+    //Crea objeto dibujo
+    //video = new Movie(this,selection.getAbsolutePath());
+    //video.loop();
+    dibujo = new Dibujo(selection.getAbsolutePath(), canvas);
+    isReady = true;
+  }
+  catch (Exception e) {
+    e.printStackTrace();
+    exit();
+  }
+}
+
+
 void movieEvent(Movie video) {
   dibujo = new Dibujo(video, canvas);
 }
 
 void keyPressed() {
 
-
-  if (key == CODED || key == 'n') {
+  switch(key) {
+  case CODED:
     dibujo.keyPressed();
-  } else {
-      if (key == 'q') {
+    break;
+  case 'n':
+    dibujo.keyPressed();
+    break;
+  case 'x':
+  isReady = false;
+    selectImage();
+    break;
+  case 'q':
     //videoExport.endMovie();
     exit();
-  }
+    break;
+  default:
     if (sliderOn) {
       sliderOn=false;
       sliders.hide();
