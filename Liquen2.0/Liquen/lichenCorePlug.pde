@@ -1,15 +1,21 @@
 class LichenCorePlug {
-  
+  float coreRadio, blurRadio;
+      
+      LichenCorePlug(int diameter, int dHeight){
+        coreRadio = diameter/2;
+        float wave = map(sin((frameCount*0.5) % frameRate),-1,1,0.95,1.05); 
+        blurRadio = coreRadio + (wave * dHeight/6 );
+      }
+
   void execute(){
-    float diameter = 100;
   for(int x=0 ; x<width ; x++){
     for(int y=0 ; y<height ; y++){
       float distance = dist(x,y,width/2,height/2);
       
-      if(distance<diameter && distance>39){
-         float blur = 255-map(distance,39,diameter,0,255);
+      if(distance<blurRadio && distance>coreRadio-1){
+         float blur = 255-map(distance,coreRadio-1,blurRadio,0,255);
          int vibratedBlur = int(random(blur-10,blur+10));
-         //int vibratedBlur = int(blur);
+         strokeWeight(2);
           stroke(255, vibratedBlur);
           point(x,y);
       }
