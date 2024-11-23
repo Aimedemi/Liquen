@@ -19,10 +19,10 @@ class Dibujo {
     decorator = new PunteroMagicoDecorator(img);
   }
 
-  Dibujo(Movie video, int canvas) {
-    img = video;
-    img.resize(0, canvas);
-  }
+  //Dibujo(Movie video, int canvas) {
+  //  img = video;
+  //  img.resize(0, canvas);
+  //}
 
   void draw(int[] params, float amp, BeatDetector beat) {
 
@@ -54,7 +54,7 @@ class Dibujo {
       for (int x = 0; x < img.width; x++) {
         int newX = randomInt(x-floor(amp*20), x+floor(amp*20));
         //Aca esta lo de la vibracion -->
-        int newY = randomInt(y-floor(amp*100), y+floor(amp*100));
+        int newY = randomInt(y-floor(amp*30), y+floor(amp*30));
         set(x, y, get(x, newY));
       }
     }

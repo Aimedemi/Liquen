@@ -1,12 +1,12 @@
 import controlP5.*; //<>// //<>//
-import processing.video.*;
+//import processing.video.*;
 import processing.sound.*;
 //import com.hamoid.*;
 
 //VideoExport videoExport;
 ControlP5 sliders;
 Dibujo dibujo;
-Movie video;
+//Movie video;
 int canvas = 574;
 int sliderRed= 110;
 int sliderGreen= 130;
@@ -78,7 +78,7 @@ void draw() {
 }
 
 void selectAudio() {
-  //selectInput("Elegi audio:", "audioSelected");
+  selectInput("Elegi audio:", "audioSelected");
   initAudioIn();
 }
 
@@ -131,9 +131,9 @@ void fileSelected(File selection) {
 }
 
 
-void movieEvent(Movie video) {
-  dibujo = new Dibujo(video, canvas);
-}
+//void movieEvent(Movie video) {
+//  dibujo = new Dibujo(video, canvas);
+//}
 
 void keyPressed() {
 

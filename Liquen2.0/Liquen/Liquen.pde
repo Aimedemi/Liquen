@@ -7,8 +7,8 @@ AudioIn in;
 Huesped[] huespedes = new Huesped[20];
 
 void settings() {
-  //fullScreen();
-  size(displayWidth/2, displayHeight/2);
+  fullScreen();
+  //size(displayWidth/2, displayHeight/2);
   dHeight=displayHeight;
   
   amp = new Amplitude(this);
@@ -30,8 +30,6 @@ void draw() {
   frameRate(60);
 
   background(#081117);
-  
-  print(amp.analyze());
 
   LichenCorePlug plug = new LichenCorePlug(coreDiameter, dHeight, amp.analyze());
 
@@ -41,9 +39,9 @@ void draw() {
 
   plug.execute();
   
-    for(int i = 0; i<20;i++){
-  huespedes[i].execute();
-    }
+  //  for(int i = 0; i<20;i++){
+  //huespedes[i].execute();
+  //  }
 }
 
 float waveNumber(int num){
